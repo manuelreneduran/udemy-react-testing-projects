@@ -3,6 +3,12 @@ import { shallow } from 'enzyme';
 import { findByTestAttr, storeFactory } from '../test/testUtils';
 import Input from './Input';
 
+/**
+ * Factory function to create a ShallowWrapper for the Input component
+ * @param {object} initialState - initial state for this setup
+ * @returns {ShallowWrapper}
+ */
+
 const setup = (initialState={}) => {
   const store = storeFactory(initialState);
   const wrapper = shallow(<Input store={store}/>).dive().dive();
@@ -52,5 +58,12 @@ describe('render', () => {
 })
 
 describe('updating state', () => {
-
+  ('redux props', () => {
+    test('has success piece of state as prop', () => {
+      const success = true;
+      const wrapper = setup({ success });
+      const successProp = wrapper.instance().props.success;
+      expect(successProp).toBe(success)
+    })
+  })
 })
